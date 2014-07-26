@@ -1,0 +1,19 @@
+#!/bin/sh
+action="$1-$2"
+case $action in
+   pre-suspend)
+	# do something here (e.g. rmmod)
+	rmmod usbcore
+	systemctl stop openvpn@strongvpn.service
+	;;
+   post-suspend)
+	# do something here (e.g. modprobe)
+	modprobe usbcore
+       ;;
+   pre-hibernate)
+	# do something here (e.g. rmmod)
+	;;
+   post-hibernate)
+	# do something here (e.g. modprobe)
+       ;;
+esac
