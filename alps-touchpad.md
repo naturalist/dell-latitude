@@ -1,13 +1,13 @@
-= Alps Touchpad =
+# Alps Touchpad
 
-== Installation ==
+## Installation
 
     packer -S psmouse-alps-driver
     pacman -S xorg-xinput
 
 This will install the alps touchpad driver and you should be able to scroll.
 
-== Configuration ==
+## Configuration
 
 To make the touchpad (but not the mouse) scroll in the natural direction (like
 OSX), you first need to find its xinput id:
