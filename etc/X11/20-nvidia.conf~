@@ -1,0 +1,28 @@
+Section "ServerLayout"
+    Identifier "Layout0"
+    Screen "Laptop Screen"
+EndSection
+
+Section "Monitor"
+    Identifier "DELL"
+    Option "PreferredMode" "1600x900_60.00"
+    #Option "DPI" "96 x 96"
+EndSection
+
+Section "Device"
+	Identifier	"NVidia"
+	Driver		"nvidia"
+    Option      "NoLogo" "True"
+    Option      "RegistryDwords" "EnableBrightnessControl=1"
+EndSection
+
+Section "Screen"
+    Identifier  "Laptop Screen"
+    Device      "NVidia"
+    DefaultDepth 24
+    SubSection  "Display"
+        Viewport 0 0
+        Depth 24
+        Modes "1600x900"
+    EndSubSection
+EndSection
