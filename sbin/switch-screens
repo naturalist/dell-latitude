@@ -1,0 +1,59 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+my $xrandr = '/usr/bin/xrandr';
+
+my @a         = `$xrandr -q`;
+my %connected = ();
+
+while (@a) {
+    my $line = shift @a;
+    if ( $line =~ /(\w+\-\d+) connected/ ) {
+        my $o = $1;
+        $connected{$o} = 0;
+        while ( @a && $a[0] =~ s/^\s+// ) {
+            if ( shift(@a) =~ /\*/ ) {
+                $connected{$o} = 1;
+                last;
+            }
+        }
+    }
+}
+
+# Find which LVDS is in use
+my $LVDS = 'LVDS-1';
+for my $k ( keys %connected ) {
+    if ( $k =~ /LVDS/ ) {
+        $LVDS = $k;
+        last;
+    }
+}
+
+# This one is always connected (it's the laptop screen)
+my $lvds_on = delete $connected{$LVDS};
+
+# We only take the first other connected
+my $OTHER = %connected ? ( keys(%connected) )[0] : undef;
+
+# Laptop only, no other output attached
+if ( !$OTHER ) {
+    `$xrandr --auto`;
+}
+
+# Another output is attached
+else {
+    if ($lvds_on) {
+        # LVDS is on, then turn it off and leave the other on
+        `$xrandr --output $OTHER --auto --output $LVDS --off`;
+    }
+    else {
+        # LVDS is off, then turn it on together with the other
+        `$xrandr --output $LVDS --auto --output $OTHER --right-of $LVDS --primary`;
+    }
+}
+
+`setxkbmap -layout "us,bg" -variant ",phonetic," -option "grp:alt_shift_toggle"`;
+`xmodmap ~/.xmod`;
+`xinput set-button-map 11 1 2 3 5 4 7 6 8 9 10 11 12`;

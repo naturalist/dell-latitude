@@ -1,0 +1,2 @@
+#!/bin/sh
+pacman -Qqe | grep -vx "$(pacman -Qqm)" > ~/back/packages.txt
