@@ -29,4 +29,10 @@ Now we have to invert the scrolling by setting:
 
     xinput set-button-map 11 1 2 3 5 4 7 6 8 9 10 11 12
 
+## Disble tap to click
 
+Because it is annoying.
+
+    synclient MaxTapTime=0
+
+This will only work in the current session. Try putting it in ~/.xinitrc
