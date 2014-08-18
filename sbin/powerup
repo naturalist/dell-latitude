@@ -56,5 +56,6 @@ for i in /sys/class/backlight/*; do opt "$i/brightness" "$(num_scale "$i/max_bri
 
 # webcam
 load_mod videodev
+modprobe uvcvideo
 
 exit 0

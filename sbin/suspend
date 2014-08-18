@@ -3,12 +3,11 @@ action="$1-$2"
 case $action in
    pre-suspend)
 	# do something here (e.g. rmmod)
-	rmmod usbcore
 	systemctl stop openvpn@strongvpn.service
 	;;
    post-suspend)
 	# do something here (e.g. modprobe)
-	modprobe usbcore
+	/home/sge/sbin/keyboard
        ;;
    pre-hibernate)
 	# do something here (e.g. rmmod)

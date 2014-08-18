@@ -52,7 +52,7 @@ for i in $(iw dev | awk '$1 == "Interface" { print $2 }'); do run iw dev "$i" se
 run ethtool -s eth0 wol d
 
 # screen
-for i in /sys/class/backlight/*; do opt "$i/brightness" "$(num_scale "$i/max_brightness" 0)"; done
+for i in /sys/class/backlight/*; do opt "$i/brightness" "$(num_scale "$i/max_brightness" 1)"; done
 
 # webcam
 unload_mod_recursive videodev
